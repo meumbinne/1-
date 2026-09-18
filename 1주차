@@ -1,0 +1,17 @@
+#SELECT 구에서 열,행 지정
+SELECT *FROM sample21;
+SELECT *FROM sample21 WHERE birthday=NULL;
+SELECT *FROM sample21 WHERE birthday IS NUL L;
+
+#AND 연산자로 조건식 조합하기
+SELECT *FROM sample24 WHERE a<>0 AND b<>0;
+
+#OR로 조합하기
+SELECT *FROM sample24 WHERE a <>0 OR b<>0; 
+
+#NOT으로 조합
+SELECT *FROM sample24 WHERE NOT(a<>0 OR b<>0); 
+
+#LIKE 술어로 '%SQL%'로 패턴 매칭
+SELECT *FROM sample25;
+

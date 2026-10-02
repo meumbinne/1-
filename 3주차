@@ -1,0 +1,92 @@
+#행 개수 구하기-COUNT
+
+SELECT COUNT(*) FROM sample51;
+
+SELECT COUNT(*)
+FROM sample51
+WHERE name = 'A';
+
+SELECT COUNT(no), COUNT(name)
+FROM sample51;
+
+SELECT DISTINCT name
+FROM sample51;
+
+SELECT ALL name
+FROM sample51;
+
+SELECT DISTINCT name
+FROM sample51;
+
+SELECT DISTINCT name
+FROM sample51;
+
+
+#NULL을 0으로 처리하고 싶은 경우
+
+SELECT AVG(
+    CASE
+        WHEN quantity IS NULL THEN 0
+        ELSE quantity
+    END
+)
+FROM sample51
+
+SELECT name, COUNT(name)
+FROM sample51
+GROUP BY name
+
+SELECT name, COUNT(name), SUM(quantity)
+FROM sample51
+GROUP BY name
+
+SELECT name, COUNT(name)
+FROM sample51
+GROUP BY name
+HAVING COUNT(name) = 1
+
+SELECT name, COUNT(name), SUM(quantity)
+FROM sample51
+GROUP BY name
+ORDER BY SUM(quantity) DESC
+
+#서브쿼리
+SELECT ...
+FROM ...
+WHERE 열 = (SELECT ...);
+
+DELETE FROM sample54
+WHERE a = 20;
+
+#FROM 구에서 서브쿼리 사용
+SELECT *
+FROM (
+    SELECT *
+    FROM (
+        SELECT *
+        FROM sample54
+    ) AS sq1
+) AS sq2;
+
+
+#상관 서브쿼리
+UPDATE sample551
+SET a = '있음'
+WHERE EXISTS (
+    SELECT *
+    FROM sample552
+    WHERE no2 = no
+);
+
+
+
+
+
+
+
+
+
+
+
+
+

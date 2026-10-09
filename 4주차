@@ -1,0 +1,76 @@
+#UNION으로 합집합 구하기
+SELECT * FROM sample71_a
+UNION
+SELECT * FROM sample71_b;
+
+#UNION과 ORDER BY
+SELECT a AS c FROM sample71_a
+UNION
+SELECT b AS c FROM sample71_b
+ORDER BY c;
+
+#테이블 결합
+SELECT *
+FROM X, Y;
+
+SELECT 상품.상품명, 재고수.재고수
+FROM 상품, 재고수
+WHERE 상품.상품코드 = 재고수.상품코드;
+
+SELECT 상품.상품명, 재고수.재고수
+FROM 상품
+INNER JOIN 재고수
+ON 상품.상품코드 = 재고수.상품코드;
+
+#자기결합
+SELECT S1.상품명, S2.상품명
+FROM 상품 S1
+INNER JOIN 상품 S2
+ON S1.상품코드 = S2.상품코드;
+
+#외부결합
+SELECT 상품3.상품명, 재고수.재고수
+FROM 상품3
+LEFT JOIN 재고수
+ON 상품3.상품코드 = 재고수.상품코드
+WHERE 상품3.상품분류 = '식료품';
+
+#합집합
+SELECT * FROM A
+UNION
+SELECT * FROM B;
+
+#차집합
+SELECT * FROM A
+EXCEPT
+SELECT * FROM B;
+
+#교집합
+SELECT * FROM A
+INTERSECT
+SELECT * FROM B;
+
+#곱집합
+SELECT * FROM A
+CROSS JOIN B;
+
+#선택
+SELECT *
+FROM A
+WHERE no < 3;
+
+#투영
+SELECT a
+FROM A;
+
+#결합
+SELECT *
+FROM A
+INNER JOIN B
+ON A.no = B.no;
+
+#트랜잭션
+START TRANSACTION
+COMMIT
+ROLLBACK
+

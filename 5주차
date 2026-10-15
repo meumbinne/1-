@@ -1,0 +1,97 @@
+#뷰 템플릿 페이지 만들기
+#템플릿 파일 생성
+<body>
+    <h1>홍팍님, 반갑습니다!</h1>
+</body>
+
+#컨트롤러 생성
+@Controller
+public class FirstController {
+    public String niceToMeetYou() {
+        return "greetings";
+    }
+}
+
+#URL 요청 연결
+@GetMapping("/hi")
+public String niceToMeetYou() {
+    return "greetings";
+}
+
+#템플릿에 변수 삽입
+<h1>{{username}}님, 반갑습니다!</h1>
+
+@GetMapping("/hi")
+public String niceToMeetYou(Model model) {
+    model.addAttribute("username", "홍팍");
+    return "greetings";
+}
+
+@Controller
+public class FirstController {
+    @GetMapping("/hi")
+    public String niceToMeetYou(Model model) {
+        model.addAttribute("username", "hongpark");
+        return "greetings";
+    }
+}
+
+
+<body>
+    <h1>{{username}}님, 반갑습니다!</h1>
+</body>
+
+
+@GetMapping("/bye")
+public String seeYouNext(Model model) {
+    model.addAttribute("nickname", "홍길동");
+    return "goodbye";
+}
+
+<body>
+    <h1>{{nickname}}님, 다음에 또 만나요!</h1>
+</body>
+
+
+<!-- site info -->
+<div class="mb-5 container-fluid">
+    <hr>
+    <p>@ CloudStudying |
+        <a href="#">Privacy</a> |
+        <a href="#">Terms</a>
+    </p>
+</div>
+
+
+{{>layouts/header}}
+
+<!-- content -->
+<div class="bg-dark text-white p-5">
+    <h1>{{username}}님, 반갑습니다!</h1>
+</div>
+
+{{>layouts/footer}}
+
+
+{{>layouts/header}}
+
+<div class="bg-dark text-white p-5">
+    <h1>{{nickname}}님, 다음에 또 만나요!</h1>
+</div>
+
+{{>layouts/footer}}
+
+
+@Entity
+public class Article {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column
+    private String title;
+
+    @Column
+    private String content;
+}

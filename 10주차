@@ -1,0 +1,105 @@
+@Controller
+public class MemberController {
+
+    private final MemberService memberService;
+
+    @Autowired
+    public MemberController(MemberService memberService) {
+        this.memberService = memberService;
+    }
+}
+
+@Service
+public class MemberService {
+
+    private final MemberRepository memberRepository;
+
+    @Autowired
+    public MemberService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
+}
+
+@Repository
+public class MemoryMemberRepository implements MemberRepository {
+}
+
+@Configuration
+public class SpringConfig {
+
+    @Bean
+    public MemberService memberService() {
+        return new MemberService(memberRepository());
+    }
+
+    @Bean
+    public MemberRepository memberRepository() {
+        return new MemoryMemberRepository();
+    }
+}
+
+@Controller
+public class HomeController {
+
+    @GetMapping("/")
+    public String home() {
+        return "home";
+    }
+}
+
+
+@GetMapping("/members/new")
+public String createForm() {
+    return "members/createMemberForm";
+}
+
+
+public class MemberForm {
+
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+
+@PostMapping("/members/new")
+public String create(MemberForm form) {
+
+    Member member = new Member();
+    member.setName(form.getName());
+
+    memberService.join(member);
+
+    return "redirect:/";
+}
+
+
+@GetMapping("/members")
+public String list(Model model) {
+
+    List<Member> members = memberService.findMembers();
+
+    model.addAttribute("members", members);
+
+    return "members/memberList";
+}
+
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>이름</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="member : ${members}">
+            <td th:text="${member.id}"></td>
+            <td th:text="${member.name}"></td>
+        </tr>
+    </tbody>
+</table>
